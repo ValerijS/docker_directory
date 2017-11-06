@@ -1,0 +1,47 @@
+-//<!DOCTYPE html>
+html(lang="en")
+head
+  title Bootstrap Tiles
+  meta(charset="utf-8")
+  meta(name="viewport" content="width=device-width, initial-scale=1")
+  link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css")
+  script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")
+  script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js")
+  <div style="margin:70px;">
+    <nav class="navbar navbar-inverse navbar-static-top">
+  <div class="container" style="background-color:powderblue;"> 
+    <a class="navbar-brand" href="/" >Home</a>
+    <ul class="nav navbar-nav">
+      <li class="active,bg-success" >
+        <a href="/users" style="background-color:yellow;">Users</a>
+      </li>
+      <li>
+        <a href="/register" class="bg-warning">Registration</a>
+      </li>
+      <li>
+        <a href="/admin" class="bg-success">Admin</a>
+      </li> 
+      <li>
+        <a href="/groups" style="background-color:yellow;">Groups</a>
+      </li>
+      <li>
+         <p class="navbar-brand" style="margin:30px;">You can change an order of rows by click on name of any column
+      </li>
+    </ul>
+  </div>
+</nav>    
+  </div>
+body
+ p 
+ p(id= 'k1')
+ table(class="table table-striped")
+  tr
+   each val, index in columns
+    th(onclick= "onClick_order_15_08(event,this)") #{val}
+     
+
+  each school in schools
+   tr
+    each val in school
+     td #{val} 
+ script(src="/event_handler.js")    

@@ -1,0 +1,27 @@
+
+script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")
+p
+table(style = {width: "100%"})
+ tr
+  each val, index in columns
+   th #{val}
+ -var i = 0
+ each school in schools
+  - i++
+  tr
+   -var j = 0  
+    each val, index in school
+     - j++
+     td     
+      input(type='text', name= index, id= i, row= j,  onchange="onChangeUser(event, this)", value= val)
+ tr
+  each val, index in columns
+   th #{val}  
+
+script(src="/controllers/event_handler_b.js")
+
+
+
+ 
+
+

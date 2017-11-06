@@ -1,0 +1,102 @@
+console.log('a1');
+var express = require('express');
+var session = require('express-session');
+var ejs = require('ejs');
+var app = express();
+var router = express.Router();  
+var http = require("http");
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+var urlencodedParser = bodyParser.urlencoded({ extended: false });
+const pug = require('pug');
+const User = require(process.cwd()+'/'+'db').Administrator;
+const mustAuthenticatedMw = require('./controllers/mustAuthenticatedMw');
+// Middlewares, которые должны быть определены до passport:
+app.use(cookieParser());
+app.use(bodyParser());
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+var requireTree = require('require-tree');
+var controllers = requireTree('./controllers');
+var admin = require('./controllers/admin');//look request urls in this file
+app.use(session({secret: 'ssshhhhh'}));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
+//app.use(express.static('public'));
+app.use(express.static('views'));
+app.use(express.static('controllers'))
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+  User.findById(id).then(function(user){
+     done(null,user);
+  }).catch(done);
+});
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.get('/logout', function(req, res) {
+  req.logout();
+  res.redirect('/');
+});
+//app.get('/');
+app.use('/',admin);
+
+app.get('/groups', controllers.show_s, controllers.render('views/groups_t_b.pug'));
+
+app.get('/users', controllers.show_p, controllers.render('views/users_t_b.pug'));
+/*
+const Sequelize = require('sequelize');
+//const sqlite =  require('sqlite3');
+const sequelize = new Sequelize('database', 'username', 'password', {
+  host: 'localhost',
+  dialect: 'sqlite',
+  pool: {
+    max: 5,
+    min: 0,
+    idle: 10000
+  },  
+  storage: './database.sqlite'
+});
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log('Connection has been established successfully.');
+  })
+  .catch(err => {
+    console.error('Unable to connect to the database:', err);
+  });
+const Groups = require('./models/groups')(sequelize, Sequelize);
+const Users = require('./models/users')(sequelize, Sequelize);
+const Administrator = require('./models/administrator')(sequelize, Sequelize);
+
+module.exports = {
+  Groups: Groups,
+  Users: Users,
+  Administrator: Administrator
+}
+module.exports.sequelize = sequelize
+module.exports.Sequelize = Sequelize 
+
+http.createServer(function (request, response) {
+   // Send the HTTP header 
+   // HTTP Status: 200 : OK
+   // Content Type: text/plain
+   response.writeHead(200, {'Content-Type': 'text/plain'});   
+   // Send the response body as "Hello World"
+   response.end('Hello World\n');
+}).listen(8081);
+// Console will print the message
+console.log('Server running at http://127.0.0.1:3000/');
+*/
+ var server = app.listen(3001, function () {
+   var host = server.address().address
+   var port = server.address().port
+   console.log("Example app listening at http://%s:%s", host, port)
+
+}) 
+
+

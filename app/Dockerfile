@@ -1,0 +1,22 @@
+# Use an official node runtime as a parent image
+FROM node:6.11.4 
+# Set the working directory to /app
+WORKDIR /app
+
+# Copy the current directory contents into the container at /app
+ADD . /app
+
+# Install any needed packages specified in requirements.txt
+RUN npm install sqlite3
+
+# Make port 3001 available to the world outside this container
+EXPOSE 3001
+
+# Define environment variable
+ENV NAME COMPOSE_API_VERSION
+
+# Run app.js when the container launches
+CMD ["node", "app.js"]
+
+
+

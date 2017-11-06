@@ -1,0 +1,55 @@
+-//<!DOCTYPE html>
+html(lang="en")
+head
+  title Bootstrap Tiles
+  meta(charset="utf-8")
+  meta(name="viewport" content="width=device-width, initial-scale=1")
+  link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css")
+  script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")
+  script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js")
+  <div style="margin:70px;">
+    <nav class="navbar navbar-inverse navbar-static-top">
+      <div class="container" style="background-color:powderblue;"> 
+        <a class="navbar-brand" href="/" >Home</a>
+        <ul class="nav navbar-nav">
+          <li class="active,bg-success" >
+            <a href="/users" style="background-color:yellow;">Users</a>
+          </li>
+          <li>
+            <a href="/register" class="bg-warning">Registration</a>
+          </li>
+          <li>
+            <a href="/admin" class="bg-success">Admin</a>
+          </li> 
+          <li>
+            <a href="/groups" style="background-color:yellow;">Groups</a>
+          </li>
+          <li>
+             <pclass="navbar-brand" style="margin:30px;">You can change any field, of any column of groups and users (but not "id") by write and enter new value,
+             to delete existent or put new group or user, see file "controllers/admin" and html files in "views';   to put new group:http://localhost:3001/admin/put_group/'nodejs';  to put new user:.../admin/put_user?F_name='aaa'&L_name='bbb'&id_group=...; to delete use:localhost:3001/window_form_delete_user.html;  to delete groud and all its users:localhost:3001/get_form_delete_group.html - seven different ways to send data using request. </p
+          </li>
+        </ul>
+      </div>
+    </nav>
+   
+body
+  p Hello #{sess_em1}
+  p(id= 'k1') 
+    div(class="container-fluid")         
+      div(class="row")
+         -var i = 0
+         each school in schools
+          -i++
+           div(class="col-sm-4")           
+             div(style="display:inline-block; width: 250px; height: 310px; margin: 10px; border: 3px solid #73AD21; background-color:lavenderblush;")
+               -var j = 0 
+               each val, index in school
+                -j++                 
+                  label(for="ex3") #{index}        
+                    input(type='text', class="form-control", name= index, line= i,  onchange="onChange(event, this)", value= val,  style="background-color:lavender;")
+               label(for="ex3") click here        
+                    input(type='text', class="form-control", name= index, line= i,   value= "to get table 'Users'", onclick= "onClick_11_08(event,this)", style="background-color:lavender;")  
+span <br>
+a(href="/logout") Logout
+script(src='/event_handler_a.js')            
+

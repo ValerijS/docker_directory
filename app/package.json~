@@ -1,0 +1,23 @@
+{
+  "name": "nodejs_app",
+  "version": "0.0.0",
+  "description": "test",
+  "main": "app.js",
+  "scripts": {
+    start:'app.js'
+  },
+  "repository": {
+    "type": "git",
+    "url": "{type: github, url:\"https://github.com/ValerijS/proj_T\"}"
+  },
+  "keywords": [
+    "['app'",
+    "'router'",
+    "'server']"
+  ],
+  "author": "valerij",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.1"
+  }
+}
