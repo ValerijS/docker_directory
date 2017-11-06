@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <script>
+        var eventSource;
+
+        function start() { 
+
+            if (!window.EventSource) {
+                alert('In this browser there is no support for EventSource.');
+                return;
+            }
+
+            eventSource = new EventSource('digits');
+
+            eventSource.onopen = function(e) {
+                log("The connection is open");
+            };
+
+            eventSource.onerror = function(e) {
+                if (this.readyState == EventSource.CONNECTING) {
+                    log("Connection torn, reconnect ...");
+                } else {
+                    log("A status error: " + this.readyState);
+                }
+            };
+           
+            eventSource.onmessage = function(e) {
+                console.log(e);
+                log(e.data);
+            };
+        }
+
+        function stop() { // при нажатии на Стоп
+            eventSource.close();
+            log("Connection completed");
+        }
+
+        function log(msg) {
+            logElem.innerHTML += msg + "<br>";
+        }
+
+    </script>
+</head>
+
+<body>
+
+    <button onclick="start()">Start</button>
+    <button onclick="stop()">Stop</button> Click "Start" to start.
+    <div id="logElem"></div>
+
+
+</body>
+
+</html>
